@@ -154,7 +154,7 @@ describe('Staker dApp', () => {
 
       const amountToSell = ethers.utils.parseEther('100');
       await expect(vendorContract.connect(addr1).sellTokens(amountToSell)).to.be.revertedWith(
-        'ERC20: transfer amount exceeds allowance',
+        'ERC20: insufficient allowance',
       );
     });
 
