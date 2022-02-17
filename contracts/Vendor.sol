@@ -12,23 +12,23 @@ contract Vendor is Ownable {
     // Our Token Contract
     SWIToken swiToken;
 
-    // token price for ETH
-    uint256 public tokensPerEth = 100;
+    // token price for BNB
+    uint256 public tokensPerBnb = 100;
 
     // Event that log buy operation
-    event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+    event BuyTokens(address buyer, uint256 amountOfBNB, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
         swiToken = SWIToken(tokenAddress);
     }
 
     /**
-     * @notice Allow users to buy token for ETH
+     * @notice Allow users to buy token for BNB
      */
     function buyTokens() public payable returns (uint256 tokenAmount) {
-        require(msg.value > 0, "Send ETH to buy some tokens");
+        require(msg.value > 0, "Send BNB to buy some tokens");
 
-        uint256 amountToBuy = msg.value * tokensPerEth;
+        uint256 amountToBuy = msg.value * tokensPerBnb;
 
         // check if the Vendor Contract has enough amount of tokens for the transaction
         uint256 vendorBalance = swiToken.balanceOf(address(this));
@@ -48,7 +48,7 @@ contract Vendor is Ownable {
     }
 
     /**
-     * @notice Allow users to sell tokens for ETH
+     * @notice Allow users to sell tokens for BNB
      */
     function sellTokens(uint256 tokenAmountToSell) public {
         // Check that the requested amount of tokens to sell is more than 0
@@ -65,10 +65,10 @@ contract Vendor is Ownable {
         );
 
         // Check that the Vendor's balance is enough to do the swap
-        uint256 amountOfETHToTransfer = tokenAmountToSell / tokensPerEth;
-        uint256 ownerETHBalance = address(this).balance;
+        uint256 amountOfBNBToTransfer = tokenAmountToSell / tokensPerBnb;
+        uint256 ownerBNBBalance = address(this).balance;
         require(
-            ownerETHBalance >= amountOfETHToTransfer,
+            ownerBNBBalance >= amountOfBNBToTransfer,
             "Vendor has not enough funds to accept the sell request"
         );
 
@@ -79,12 +79,12 @@ contract Vendor is Ownable {
         );
         require(sent, "Failed to transfer tokens from user to vendor");
 
-        (sent, ) = msg.sender.call{value: amountOfETHToTransfer}("");
-        require(sent, "Failed to send ETH to the user");
+        (sent, ) = msg.sender.call{value: amountOfBNBToTransfer}("");
+        require(sent, "Failed to send BNB to the user");
     }
 
     /**
-     * @notice Allow the owner of the contract to withdraw ETH
+     * @notice Allow the owner of the contract to withdraw BNB
      */
     function withdraw() public onlyOwner {
         uint256 ownerBalance = address(this).balance;

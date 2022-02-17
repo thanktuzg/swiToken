@@ -1,0 +1,2 @@
+SWIToken deployed to: 0xb47623aB0da12F6DDC8C3C03dF37ef4Da886E774
+Vendor Contract deployed to:  0x78dd5028853Cb95de62D9B180e089c7A5cfe8d91

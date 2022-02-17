@@ -3,7 +3,8 @@ require("@nomiclabs/hardhat-waffle")
  * @type import('hardhat/config').HardhatUserConfig
  */
 
-const privateKey = "ae18ff702de3adab73e52f542c356b87d8896235f09bf8b7aa1c4c03edb7a6a4"
+// const privateKey = "" //ropsten
+const privateKey = "" //bsc
 
  module.exports = {
   defaultNetwork: "ropsten",
@@ -13,6 +14,11 @@ const privateKey = "ae18ff702de3adab73e52f542c356b87d8896235f09bf8b7aa1c4c03edb7
     ropsten: {
       url: "https://ropsten.infura.io/v3/ad8373285fa44725a2516064fa9c12bb",
       accounts: [`0x${privateKey}`]
+    },
+    bsc: {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+      accounts: [`0x${privateKey}`],
+      chainID: 97
     }
   },
   solidity: {
